@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
+    use HasFactory;
+    
     protected $fillable = [
         'name', 'phone', 'email', 'birthday', 'notes',
         'total_visits', 'total_spent', 'last_visit', 'is_vip'

@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'booking_number', 'table_id', 'customer_name', 'customer_phone', 
         'customer_email', 'guest_count', 'booking_date', 'duration_minutes',

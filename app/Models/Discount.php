@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Discount extends Model
 {
+    use HasFactory;
+    
     protected $fillable = [
         'code', 'name', 'description', 'type', 'value',
         'minimum_order_amount', 'usage_limit', 'used_count',

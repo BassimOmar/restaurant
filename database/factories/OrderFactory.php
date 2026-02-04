@@ -44,4 +44,11 @@ class OrderFactory extends Factory
             'completed_at' => now(),
         ]);
     }
+    public function inProgress(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'status' => 'in_progress',
+            'completed_at' => null,
+        ]);
+    }
 }
