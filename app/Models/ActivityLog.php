@@ -69,3 +69,8 @@ trait LogsActivity
         ]);
     }
 }
+
+class Order extends Model
+{
+    use LogsActivity; // Automatically logs all changes
+}
