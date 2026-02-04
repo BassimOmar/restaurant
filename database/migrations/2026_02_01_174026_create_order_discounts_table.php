@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('order_discounts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id')
+              ->constrained()
+              ->onDelete('cascade');
+        // Which order
+        
+        $table->foreignId('discount_id')
+              ->constrained()
+              ->onDelete('cascade');
+        // Which discount was applied
+        
+        $table->decimal('discount_amount', 10, 2);
+        // Actual amount discounted (stored for history)
             $table->timestamps();
         });
     }
