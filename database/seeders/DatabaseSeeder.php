@@ -21,8 +21,7 @@ class DatabaseSeeder extends Seeder
          // ═══════════════════════════════════════════════════════
         // 1. USERS (Staff)
         // ═══════════════════════════════════════════════════════
-        $this->command->info('👥 Creating users...');
-
+        
         $owner = User::create([
             'name' => 'Pierre Dubois',
             'email' => 'owner@lamaison.com',
