@@ -341,10 +341,10 @@
             <a href="{{ route('supervisor.inventory.index') }}" class="{{ request()->routeIs('supervisor.inventory.*') ? 'active' : '' }}">
                 <span class="nav-icon">🥕</span> Inventory
             </a>
-            <a href="{{ route('supervisor.menu_categories.index') }}" class="{{ request()->routeIs('supervisor.menu_categories.*') ? 'active' : '' }}">
+            <a href="{{ route('supervisor.menu-categories.index') }}" class="{{ request()->routeIs('supervisor.menu_categories.*') ? 'active' : '' }}">
                 <span class="nav-icon">📂</span> Categories
             </a>
-            <a href="{{ route('supervisor.menu_items.index') }}" class="{{ request()->routeIs('supervisor.menu_items.*') ? 'active' : '' }}">
+            <a href="{{ route('supervisor.menu-items.index') }}" class="{{ request()->routeIs('supervisor.menu_items.*') ? 'active' : '' }}">
                 <span class="nav-icon">🍽️</span> Menu Items
             </a>
         @endif

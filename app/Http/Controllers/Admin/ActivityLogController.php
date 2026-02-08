@@ -14,12 +14,12 @@ class ActivityLogController extends Controller
             ->latest()
             ->paginate(25);
 
-        return view('dashboard.admin.activity_logs.index', compact('logs'));
+        return view('dashboard.admin.activity-logs.index', compact('logs'));
     }
 
     public function show(ActivityLog $log)
     {
         $log->load('user');
-        return view('dashboard.admin.activity_logs.show', compact('log'));
+        return view('dashboard.admin.activity-logs.show', compact('log'));
     }
 }

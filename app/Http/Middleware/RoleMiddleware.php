@@ -16,7 +16,7 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, ...$roles): mixed
     {
-        if (!auth::check() || !in_array(auth::user()->role, $roles)) {
+        if (!Auth::check() || !in_array(Auth::user()->role, $roles)) {
             abort(403);
             
         }

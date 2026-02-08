@@ -18,7 +18,6 @@
                 <td style="font-size:0.78rem; color:var(--text-muted);">{{ $log->ip_address ?? '—' }}</td>
                 <td style="font-size:0.78rem; color:var(--text-muted);">{{ $log->created_at->format('M d, Y g:i A') }}</td>
             </tr>
-            @empty
             <tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:30px;">No logs.</td></tr>
             @endforeach
         </tbody>

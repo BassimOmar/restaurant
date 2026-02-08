@@ -24,7 +24,6 @@
                     </div>
                 </td>
             </tr>
-            @empty
             <tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding:30px;">No customers yet.</td></tr>
             @endforeach
         </tbody>

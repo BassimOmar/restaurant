@@ -53,7 +53,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($recentOrders as $order)
+                @foreach($recentOrders as $order){
                 <tr>
                     <td>{{ $order->order_number }}</td>
                     <td>{{ $order->table->table_number }}</td>
@@ -61,8 +61,7 @@
                     <td>${{ number_format($order->total, 2) }}</td>
                     <td><span class="badge {{ $order->status }}">{{ $order->status }}</span></td>
                 </tr>
-                @empty
-                <tr><td colspan="5" style="color: var(--text-muted); text-align:center; padding: 30px;">No orders today.</td></tr>
+                <tr><td colspan="5" style="color: var(--text-muted); text-align:center; padding: 30px;">No orders today.</td></tr>}
                 @endforeach
             </tbody>
         </table>
@@ -79,14 +78,13 @@
                 <tr><th>Action</th><th>By</th><th>Time</th></tr>
             </thead>
             <tbody>
-                @foreach($recentLogs as $log)
+                @foreach($recentLogs as $log){
                 <tr>
                     <td style="font-size:0.82rem;">{{ $log->description }}</td>
                     <td>{{ $log->user?->name ?? 'System' }}</td>
                     <td style="color: var(--text-muted); font-size:0.78rem;">{{ $log->created_at->diffForHumans() }}</td>
                 </tr>
-                @empty
-                <tr><td colspan="3" style="color: var(--text-muted); text-align:center; padding:30px;">No activity.</td></tr>
+                <tr><td colspan="3" style="color: var(--text-muted); text-align:center; padding:30px;">No activity.</td></tr>}
                 @endforeach
             </tbody>
         </table>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Discount;
+use App\Models\{Discount, Customer};
 use Illuminate\Http\Request;
 
 class DiscountController extends Controller
@@ -14,7 +14,8 @@ class DiscountController extends Controller
     public function index()
     {
         $discounts = Discount::latest()->get();
-        return view('dashboard.admin.discounts.index', compact('discounts'));
+        $customer = Customer::first();
+        return view('dashboard.admin.discounts.index', compact('discounts', 'customer'));
     }
 
     /**
