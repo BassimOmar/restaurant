@@ -23,27 +23,26 @@
                 <td>
                     <div class="btn-group">
                         @if($booking->status === 'pending')
-                            <form action="{{ route('admin.bookings.status', [$booking, 'confirmed']) }}" method="POST" style="display:inline;">
-                                @csrf @method('PATCH')
+                            <form action="{{ route('admin.bookings.confirm', $booking) }}" method="POST" style="display:inline;">
+                                @csrf
                                 <button type="submit" class="btn btn-success btn-sm">Confirm</button>
                             </form>
                         @endif
-                        @if(in_array($booking->status, ['pending', 'confirmed']))
-                            <form action="{{ route('admin.bookings.status', [$booking, 'cancelled']) }}" method="POST" style="display:inline;">
-                                @csrf @method('PATCH')
-                                <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                        @if($booking->status === 'confirmed')
+                            <form action="{{ route('admin.bookings.arrived', $booking) }}" method="POST" style="display:inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-info btn-sm">Arrived</button>
                             </form>
                         @endif
-                        @if($booking->status === 'confirmed')
-                            <form action="{{ route('admin.bookings.status', [$booking, 'arrived']) }}" method="POST" style="display:inline;">
-                                @csrf @method('PATCH')
-                                <button type="submit" class="btn btn-info btn-sm">Arrived</button>
+                        @if(in_array($booking->status, ['pending', 'confirmed']))
+                            <form action="{{ route('admin.bookings.cancel', $booking) }}" method="POST" style="display:inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Cancel this booking?')">Cancel</button>
                             </form>
                         @endif
                     </div>
                 </td>
             </tr>
-            @empty
             <tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding:30px;">No bookings.</td></tr>
             @endforeach
         </tbody>

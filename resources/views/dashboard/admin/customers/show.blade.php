@@ -56,7 +56,6 @@
                     <td>{{ $booking->guest_count }}</td>
                     <td><span class="badge {{ $booking->status }}">{{ str_replace('_', ' ', $booking->status) }}</span></td>
                 </tr>
-                @empty
                 <tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding:24px;">No bookings.</td></tr>
                 @endforeach
             </tbody>

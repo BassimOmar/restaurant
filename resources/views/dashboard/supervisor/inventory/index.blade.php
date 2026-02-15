@@ -55,7 +55,6 @@
                     </div>
                 </td>
             </tr>
-            @empty
             <tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:30px;">No inventory items.</td></tr>
             @endforeach
         </tbody>

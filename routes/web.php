@@ -77,8 +77,8 @@ Route::prefix('supervisor')
         Route::resource('inventory', App\Http\Controllers\Supervisor\InventoryController::class);
         Route::post('inventory/{inventoryItem}/adjust', [App\Http\Controllers\Supervisor\InventoryController::class, 'adjustStock'])->name('inventory.adjust');
         
-        Route::resource('menu-categories', App\Http\Controllers\Supervisor\MenuCategoryController::class);
-        Route::resource('menu-items', App\Http\Controllers\Supervisor\MenuItemController::class);
+        Route::resource('menu_categories', App\Http\Controllers\Supervisor\MenuCategoryController::class);
+        Route::resource('menu_items', App\Http\Controllers\Supervisor\MenuItemController::class);
     });
 
 
