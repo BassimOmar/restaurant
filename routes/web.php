@@ -13,6 +13,23 @@ Route::get('/about', [App\Http\Controllers\Website\PageController::class, 'about
 Route::get('/booking', [App\Http\Controllers\Website\BookingController::class, 'index'])->name('website.booking');
 Route::post('/booking', [App\Http\Controllers\Website\BookingController::class, 'store'])->name('website.booking.store');
 
+
+// ═══════════════════════════════════════════════════════════════════════
+// LOGIN/LOGOUT (Uses Breeze view, custom controller logic)
+// ═══════════════════════════════════════════════════════════════════════
+
+Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])
+    ->name('login')
+    ->middleware('guest');
+
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])
+    ->middleware('guest');
+
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])
+    ->name('logout')
+    ->middleware('auth');
+
+    
 // ─── PROFILE (Authenticated) ─────────────────────────────────────
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -24,60 +41,82 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 // ─── ADMIN DASHBOARD ─────────────────────────────────────────────
-Route::prefix('admin')->middleware(['auth', 'role:owner'])->name('admin.')->group(function () {
-    Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('index');
 
-    // Users
-    Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+Route::prefix('admin')
+    ->middleware(['auth', 'role:owner'])
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('index');
+        Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+        Route::resource('tables', App\Http\Controllers\Admin\TableController::class);
+        Route::resource('discounts', App\Http\Controllers\Admin\DiscountController::class);
+        
+        Route::get('bookings', [App\Http\Controllers\Admin\BookingController::class, 'index'])->name('bookings.index');
+        Route::post('bookings/{booking}/confirm', [App\Http\Controllers\Admin\BookingController::class, 'confirm'])->name('bookings.confirm');
+        Route::post('bookings/{booking}/arrived', [App\Http\Controllers\Admin\BookingController::class, 'arrived'])->name('bookings.arrived');
+        Route::post('bookings/{booking}/cancel', [App\Http\Controllers\Admin\BookingController::class, 'cancel'])->name('bookings.cancel');
+        
+        Route::get('customers', [App\Http\Controllers\Admin\CustomerController::class, 'index'])->name('customers.index');
+        Route::get('customers/{customer}', [App\Http\Controllers\Admin\CustomerController::class, 'show'])->name('customers.show');
+        Route::get('customers/{customer}/edit', [App\Http\Controllers\Admin\CustomerController::class, 'edit'])->name('customers.edit');
+        Route::patch('customers/{customer}', [App\Http\Controllers\Admin\CustomerController::class, 'update'])->name('customers.update');
+        
+        Route::get('logs', [App\Http\Controllers\Admin\ActivityLogController::class, 'index'])->name('logs.index');
+        Route::get('logs/{log}', [App\Http\Controllers\Admin\ActivityLogController::class, 'show'])->name('logs.show');
+    });
 
-    // Tables
-    Route::resource('tables', App\Http\Controllers\Admin\TableController::class);
 
-    // Discounts
-    Route::resource('discounts', App\Http\Controllers\Admin\DiscountController::class);
+// SUPERVISOR DASHBOARD (Owner + Supervisor)
 
-    // Bookings
-    Route::get('bookings', [App\Http\Controllers\Admin\BookingController::class, 'index'])->name('bookings.index');
-    Route::patch('bookings/{booking}/status/{status}', [App\Http\Controllers\Admin\BookingController::class, 'updateStatus'])->name('bookings.status');
+Route::prefix('supervisor')
+    ->middleware(['auth', 'role:owner,supervisor'])
+    ->name('supervisor.')
+    ->group(function () {
+        Route::get('/', [App\Http\Controllers\Supervisor\DashboardController::class, 'index'])->name('index');
+        
+        Route::resource('inventory', App\Http\Controllers\Supervisor\InventoryController::class);
+        Route::post('inventory/{inventoryItem}/adjust', [App\Http\Controllers\Supervisor\InventoryController::class, 'adjustStock'])->name('inventory.adjust');
+        
+        Route::resource('menu-categories', App\Http\Controllers\Supervisor\MenuCategoryController::class);
+        Route::resource('menu-items', App\Http\Controllers\Supervisor\MenuItemController::class);
+    });
 
-    // CRM - Customers
-    Route::get('customers', [App\Http\Controllers\Admin\CustomerController::class, 'index'])->name('customers.index');
-    Route::get('customers/{customer}', [App\Http\Controllers\Admin\CustomerController::class, 'show'])->name('customers.show');
-    Route::get('customers/{customer}/edit', [App\Http\Controllers\Admin\CustomerController::class, 'edit'])->name('customers.edit');
-    Route::patch('customers/{customer}', [App\Http\Controllers\Admin\CustomerController::class, 'update'])->name('customers.update');
 
-    // Activity Logs
-    Route::get('logs', [App\Http\Controllers\Admin\ActivityLogController::class, 'index'])->name('logs.index');
-    Route::get('logs/{log}', [App\Http\Controllers\Admin\ActivityLogController::class, 'show'])->name('logs.show');
-});
+// WAITER DASHBOARD (All Staff)
 
-// ─── SUPERVISOR DASHBOARD ───────────────────────────────────────
-Route::prefix('supervisor')->middleware(['auth', 'role:owner,supervisor'])->name('supervisor.')->group(function () {
-    Route::get('/', [App\Http\Controllers\Supervisor\DashboardController::class, 'index'])->name('index');
+Route::prefix('waiter')
+    ->middleware(['auth', 'role:owner,supervisor,waiter'])
+    ->name('waiter.')
+    ->group(function () {
+        
+        // Dashboard Home
+        Route::get('/', [App\Http\Controllers\Waiter\DashboardController::class, 'index'])
+            ->name('index');
 
-    // Inventory
-    Route::resource('inventory', App\Http\Controllers\Supervisor\InventoryController::class);
-    Route::post('inventory/{inventoryItem}/adjust', [App\Http\Controllers\Supervisor\InventoryController::class, 'adjustStock'])->name('inventory.adjust');
+        // Order Management
+        Route::get('orders', [App\Http\Controllers\Waiter\OrderController::class, 'index'])
+            ->name('orders.index');
+        
+        Route::get('orders/create', [App\Http\Controllers\Waiter\OrderController::class, 'create'])
+            ->name('orders.create');
+        
+        Route::post('orders', [App\Http\Controllers\Waiter\OrderController::class, 'store'])
+            ->name('orders.store');
+        
+        // Order Status Updates
+        Route::post('orders/{order}/start', [App\Http\Controllers\Waiter\OrderController::class, 'start'])
+            ->name('orders.start');
+        
+        Route::post('orders/{order}/complete', [App\Http\Controllers\Waiter\OrderController::class, 'complete'])
+            ->name('orders.complete');
+        
+        Route::post('orders/{order}/cancel', [App\Http\Controllers\Waiter\OrderController::class, 'cancel'])
+            ->name('orders.cancel');
 
-    // Menu Categories
-    Route::resource('menu-categories', App\Http\Controllers\Supervisor\MenuCategoryController::class);
-
-    // Menu Items
-    Route::resource('menu-items', App\Http\Controllers\Supervisor\MenuItemController::class);
-});
-
-// ─── WAITER DASHBOARD ────────────────────────────────────────────
-Route::prefix('waiter')->middleware(['auth', 'role:owner,supervisor,waiter'])->name('waiter.')->group(function () {
-    Route::get('/', [App\Http\Controllers\Waiter\DashboardController::class, 'index'])->name('index');
-
-    // Orders
-    Route::get('orders', [App\Http\Controllers\Waiter\OrderController::class, 'index'])->name('orders.index');
-    Route::get('orders/create', [App\Http\Controllers\Waiter\OrderController::class, 'create'])->name('orders.create');
-    Route::post('orders', [App\Http\Controllers\Waiter\OrderController::class, 'store'])->name('orders.store');
-    Route::patch('orders/{order}/status', [App\Http\Controllers\Waiter\OrderController::class, 'updateStatus'])->name('orders.status');
-    Route::patch('order-items/{orderItem}/status', [App\Http\Controllers\Waiter\OrderController::class, 'updateItemStatus'])->name('orders.item.status');
-
-    // Payments
-    Route::get('payments/{order}', [App\Http\Controllers\Waiter\PaymentController::class, 'create'])->name('payments.create');
-    Route::post('payments/{order}', [App\Http\Controllers\Waiter\PaymentController::class, 'store'])->name('payments.store');
-});
+        // Payment Processing
+        Route::get('payments/create', [App\Http\Controllers\Waiter\PaymentController::class, 'create'])
+            ->name('payments.create');
+        
+        Route::post('payments', [App\Http\Controllers\Waiter\PaymentController::class, 'store'])
+            ->name('payments.store');
+    });

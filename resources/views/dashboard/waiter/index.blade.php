@@ -44,25 +44,22 @@
                 <div style="display:flex; gap:8px;">
                     <!-- Status Actions -->
                     @if($order->status === 'pending')
-                        <form action="{{ route('waiter.orders.status', $order) }}" method="POST" style="display:inline;">
-                            @csrf @method('PATCH')
-                            <input type="hidden" name="status" value="in_progress" />
+                        <form action="{{ route('waiter.orders.start', $order) }}" method="POST" style="display:inline;">
+                            @csrf
                             <button type="submit" class="btn btn-info btn-sm">Start</button>
                         </form>
                     @endif
                     @if($order->status === 'in_progress')
-                        <form action="{{ route('waiter.orders.status', $order) }}" method="POST" style="display:inline;">
-                            @csrf @method('PATCH')
-                            <input type="hidden" name="status" value="completed" />
+                        <form action="{{ route('waiter.orders.complete', $order) }}" method="POST" style="display:inline;">
+                            @csrf
                             <button type="submit" class="btn btn-success btn-sm">Complete</button>
                         </form>
                     @endif
                     @if(!$order->payment || $order->payment->status !== 'completed')
-                        <a href="{{ route('waiter.payments.create', $order) }}" class="btn btn-primary btn-sm">💳 Pay</a>
+                        <a href="{{ route('waiter.payments.create') }}?order={{ $order->id }}" class="btn btn-primary btn-sm">💳 Pay</a>
                     @endif
-                    <form action="{{ route('waiter.orders.status', $order) }}" method="POST" style="display:inline;">
-                        @csrf @method('PATCH')
-                        <input type="hidden" name="status" value="cancelled" />
+                    <form action="{{ route('waiter.orders.cancel', $order) }}" method="POST" style="display:inline;">
+                        @csrf
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Cancel order?')">Cancel</button>
                     </form>
                 </div>

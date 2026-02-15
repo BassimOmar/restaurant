@@ -12,7 +12,7 @@
             <tr><th>Order #</th><th>Table</th><th>Items</th><th>Total</th><th>Status</th><th>Payment</th><th>Actions</th></tr>
         </thead>
         <tbody>
-            @foreach($orders as $order)
+            @forelse($orders as $order)
             <tr>
                 <td><strong>{{ $order->order_number }}</strong></td>
                 <td>{{ $order->table->table_number }}</td>
@@ -29,26 +29,23 @@
                 <td>
                     <div class="btn-group">
                         @if($order->status === 'pending')
-                            <form action="{{ route('waiter.orders.status', $order) }}" method="POST" style="display:inline;">
-                                @csrf @method('PATCH')
-                                <input type="hidden" name="status" value="in_progress" />
+                            <form action="{{ route('waiter.orders.start', $order) }}" method="POST" style="display:inline;">
+                                @csrf
                                 <button type="submit" class="btn btn-info btn-sm">Start</button>
                             </form>
                         @endif
                         @if($order->status === 'in_progress')
-                            <form action="{{ route('waiter.orders.status', $order) }}" method="POST" style="display:inline;">
-                                @csrf @method('PATCH')
-                                <input type="hidden" name="status" value="completed" />
+                            <form action="{{ route('waiter.orders.complete', $order) }}" method="POST" style="display:inline;">
+                                @csrf
                                 <button type="submit" class="btn btn-success btn-sm">Complete</button>
                             </form>
                         @endif
                         @if(!$order->payment || $order->payment->status !== 'completed')
-                            <a href="{{ route('waiter.payments.create', $order) }}" class="btn btn-primary btn-sm">💳 Pay</a>
+                            <a href="{{ route('waiter.payments.create') }}?order={{ $order->id }}" class="btn btn-primary btn-sm">💳 Pay</a>
                         @endif
                         @if(in_array($order->status, ['pending', 'in_progress']))
-                            <form action="{{ route('waiter.orders.status', $order) }}" method="POST" style="display:inline;">
-                                @csrf @method('PATCH')
-                                <input type="hidden" name="status" value="cancelled" />
+                            <form action="{{ route('waiter.orders.cancel', $order) }}" method="POST" style="display:inline;">
+                                @csrf
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Cancel?')">Cancel</button>
                             </form>
                         @endif
@@ -57,7 +54,7 @@
             </tr>
             @empty
             <tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding:30px;">No orders yet.</td></tr>
-            @endforeach
+            @endforelse
         </tbody>
     </table>
 </div>

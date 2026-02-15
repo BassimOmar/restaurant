@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@yield('title', 'Restaurant')</title>
+    <title>@yield('title', 'La Maison Restaurant')</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap');
 
@@ -154,7 +154,7 @@
             font-size: 0.9rem;
             transition: border-color 0.3s;
         }
-        .form-group input:focus, .form-group select, .form-group textarea:focus {
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             outline: none;
             border-color: var(--gold);
         }
@@ -167,18 +167,13 @@
 <body>
 
 <nav>
-    <a href="{{ route('website.home') }}" class="logo">Restaurant</a>
+    <a href="{{ route('website.home') }}" class="logo">LA MAISON</a>
     <ul class="nav-links">
         <li><a href="{{ route('website.home') }}">Home</a></li>
         <li><a href="{{ route('website.menu') }}">Menu</a></li>
         <li><a href="{{ route('website.private_dining') }}">Private Dining</a></li>
         <li><a href="{{ route('website.booking') }}">Reserve</a></li>
         <li><a href="{{ route('website.about') }}">About</a></li>
-        @auth
-            <li><a href="{{ route(auth()->user()->role === 'owner' ? 'admin.index' : (auth()->user()->role === 'supervisor' ? 'supervisor.index' : 'waiter.index')) }}" style="color: var(--gold);">Dashboard</a></li>
-        @else
-            <li><a href="{{ route('login') }}">Staff Login</a></li>
-        @endauth
     </ul>
 </nav>
 
@@ -199,7 +194,7 @@
         <a href="{{ route('website.private_dining') }}">Private Dining</a>
         <a href="{{ route('website.about') }}">About</a>
     </div>
-    <p>&copy; {{ date('Y') }} Restaurant. All rights reserved.</p>
+    <p>&copy; {{ date('Y') }} La Maison Restaurant. All rights reserved.</p>
 </footer>
 
 <script>

@@ -79,8 +79,10 @@
         <div class="table-wrap" style="padding:24px;">
             <h3 style="margin-bottom:18px; font-size:0.95rem;">Payment Method</h3>
 
-            <form action="{{ route('waiter.payments.store', $order) }}" method="POST">
+            <form action="{{ route('waiter.payments.store') }}" method="POST">
                 @csrf
+                <input type="hidden" name="order_id" value="{{ $order->id }}">
+                
                 <div class="payment-method-grid">
                     <label class="pay-method selected" onclick="selectMethod(this, 'cash')">
                         <input type="radio" name="payment_method" value="cash" checked style="display:none;" />
@@ -118,7 +120,7 @@
             </form>
 
             <div style="margin-top:14px; text-align:center;">
-                <a href="{{ route('waiter.orders.index') }}" class="btn btn-outline btn-sm">← Back</a>
+                <a href="{{ route('waiter.index') }}" class="btn btn-outline btn-sm">← Back</a>
             </div>
         </div>
     </div>

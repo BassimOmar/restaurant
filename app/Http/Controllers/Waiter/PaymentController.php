@@ -19,9 +19,12 @@ class PaymentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('dashboard.waiter.payments.create', compact('order'));
+        $order = Order::with(['items.menuItem', 'table', 'discounts', 'waiter'])
+            ->findOrFail($request->order);
+
+        return view('waiter.payments.create', compact('order'));
     }
 
     /**
@@ -30,9 +33,12 @@ class PaymentController extends Controller
     public function store(Request $request, Order $order)
     {
         $request->validate([
+            'order_id' => 'required|exists:orders,id',
             'payment_method' => 'required|in:cash,card,mobile,other',
             'reference' => 'nullable|string',
         ]);
+
+        $order = Order::findOrFail($request->order_id);
 
         // Check if already paid
         if ($order->payment && $order->payment->status === 'completed') {
@@ -52,6 +58,8 @@ class PaymentController extends Controller
 
         $order->update(['status' => 'completed', 'completed_at' => now()]);
         $order->table()->update(['status' => 'available']);
+
+        $order->load('payment');
 
         ActivityLog::create([
             'user_id' => auth()->id(),
