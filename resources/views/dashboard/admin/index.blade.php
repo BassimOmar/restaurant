@@ -2,7 +2,7 @@
 @extends('layouts.dashboard')
 
 @section('page_title', 'Admin Dashboard')
-@section('breadcrumb', '<a href="#">Home</a>')
+@section('breadcrumb',)
 
 @section('content')
 

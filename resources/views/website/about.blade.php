@@ -1,7 +1,7 @@
 {{-- resources/views/website/about.blade.php --}}
 @extends('layouts.website')
 
-@section('title', 'About — La Maison')
+@section('title', 'About')
 
 @section('styles')
     .about-hero {

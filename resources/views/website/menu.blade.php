@@ -1,7 +1,7 @@
 {{-- resources/views/website/menu.blade.php --}}
 @extends('layouts.website')
 
-@section('title', 'Menu — La Maison')
+@section('title', 'Menu')
 
 @section('styles')
     .menu-hero {

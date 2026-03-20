@@ -1,7 +1,7 @@
 {{-- resources/views/website/booking.blade.php --}}
 @extends('layouts.website')
 
-@section('title', 'Reserve a Table — La Maison')
+@section('title', 'Reserve a Table')
 
 @section('styles')
     .booking-page {

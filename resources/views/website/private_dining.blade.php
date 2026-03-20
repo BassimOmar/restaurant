@@ -1,7 +1,7 @@
 {{-- resources/views/website/private_dining.blade.php --}}
 @extends('layouts.website')
 
-@section('title', 'Private Dining — La Maison')
+@section('title', 'Private Dining ')
 
 @section('styles')
     .pd-hero {

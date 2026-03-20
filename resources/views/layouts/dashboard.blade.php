@@ -2,9 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@yield('title', 'Dashboard') — La Maison</title>
+    <title>@yield('title', 'Dashboard') — Restaurant</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
@@ -301,7 +300,7 @@
 <!-- SIDEBAR -->
 <aside class="sidebar">
     <div class="sidebar-logo">
-        <h1>LA MAISON</h1>
+        <h1>Restaurant</h1>
         <span>{{ auth()->user()->role }} panel</span>
     </div>
 
