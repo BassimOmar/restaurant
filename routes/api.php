@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/meals', [App\Http\Controllers\Api\MealController::class, 'index']);
+
 Route::prefix('menu')->group(function () {
     Route::get('categories', [App\Http\Controllers\Api\MenuCategoryApiController::class, 'index']);
     Route::get('categories/{category}', [App\Http\Controllers\Api\MenuCategoryApiController::class, 'show']);

@@ -14,9 +14,7 @@ Route::get('/booking', [App\Http\Controllers\Website\BookingController::class, '
 Route::post('/booking', [App\Http\Controllers\Website\BookingController::class, 'store'])->name('website.booking.store');
 
 
-// ═══════════════════════════════════════════════════════════════════════
 // LOGIN/LOGOUT (Uses Breeze view, custom controller logic)
-// ═══════════════════════════════════════════════════════════════════════
 
 Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])
     ->name('login')

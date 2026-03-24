@@ -30,7 +30,7 @@
 <div class="about-hero">
     <div>
         <div class="section-label">Our Story</div>
-        <h1>About La Maison</h1>
+        <h1>About Us</h1>
     </div>
 </div>
 
