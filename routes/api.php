@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\MealChatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,5 +12,5 @@ Route::prefix('menu')->group(function () {
     Route::get('items/{menuItem}', [App\Http\Controllers\Api\MenuItemApiController::class, 'show']);
     Route::get('items/featured', [App\Http\Controllers\Api\MenuItemApiController::class, 'featured']);
 
-    Route::post('/chat', [MealChatController::class, 'chat']);
+    Route::post('/chat', [App\Http\Controllers\Api\MealChatController::class, 'chat']);
 });
