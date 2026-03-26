@@ -4,90 +4,147 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\MenuItem;
+use App\Services\MealAiService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
-class MealController extends Controller
+class MealChatController extends Controller
 {
-    /**
-     * Get filtered meals based on dietary preferences
-     * 
-     * Query parameters:
-     * - avoid: string (comma-separated ingredients to avoid)
-     * - min_protein: int (minimum protein in grams)
-     * - max_calories: int (maximum calories)
-     */
-    public function index(Request $request): JsonResponse
+    private MealAiService $aiService;
+    
+    public function __construct(MealAiService $aiService)
     {
-        // Validate query parameters
+        $this->aiService = $aiService;
+    }
+    
+    /**
+     * Process chat message and return meals
+     * POST /api/chat
+     * Body: {"message": "I want high protein no nuts"}
+     */
+    public function chat(Request $request): JsonResponse
+    {
+        // Validate input
         $validated = $request->validate([
-            'avoid' => 'nullable|string|max:500',
-            'min_protein' => 'nullable|integer|min:0',
-            'max_calories' => 'nullable|integer|min:0',
+            'message' => 'required|string|max:500',
         ]);
-
+        
+        $userMessage = $validated['message'];
+        
         try {
-            // Start query
-            $query = MenuItem::query()
-                ->where('is_available', true)
-                ->with('category');
-
-            // Filter: Avoid certain ingredients
-            if ($request->has('avoid') && !empty($request->avoid)) {
-                $avoidList = array_map('trim', explode(',', strtolower($request->avoid)));
-                
-                foreach ($avoidList as $ingredient) {
-                    $query->where(function($q) use ($ingredient) {
-                        $q->where('name', 'not like', "%{$ingredient}%")
-                          ->where('description', 'not like', "%{$ingredient}%");
-                    });
-                }
-            }
-
-            // Filter: Minimum protein
-            if ($request->has('min_protein') && $request->min_protein !== null) {
-                $query->where('protein', '>=', $request->min_protein);
-            }
-
-            // Filter: Maximum calories
-            if ($request->has('max_calories') && $request->max_calories !== null) {
-                $query->where('calories', '<=', $request->max_calories);
-            }
-
-            // Execute query
-            $meals = $query->orderBy('name', 'asc')->get();
-
-            // Transform data
-            $mealsData = $meals->map(function ($meal) {
-                return [
-                    'id' => $meal->id,
-                    'name' => $meal->name,
-                    'description' => $meal->description,
-                    'price' => (float) $meal->price,
-                    'protein' => $meal->protein,
-                    'calories' => $meal->calories,
-                    'image' => $meal->image,
-                    'category' => $meal->category->name ?? 'Other',
-                ];
-            });
-
+            // Step 1: Extract filters using AI
+            $filters = $this->aiService->extractFilters($userMessage);
+            
+            // Step 2: Query database with filters
+            $meals = $this->queryMeals($filters);
+            
+            // Step 3: Generate response message
+            $responseMessage = $this->generateResponseMessage($filters, $meals);
+            
             return response()->json([
                 'success' => true,
-                'data' => $mealsData,
-                'count' => $mealsData->count(),
-                'filters' => [
-                    'avoid' => $request->avoid,
-                    'min_protein' => $request->min_protein,
-                    'max_calories' => $request->max_calories,
-                ],
+                'message' => $responseMessage,
+                'meals' => $meals->map(function ($meal) {
+                    return [
+                        'id' => $meal->id,
+                        'name' => $meal->name,
+                        'description' => $meal->description,
+                        'price' => (float) $meal->price,
+                        'protein' => $meal->protein,
+                        'calories' => $meal->calories,
+                        'image_url' => $meal->image_url,
+                        'category' => $meal->category->name ?? 'Other',
+                    ];
+                }),
+                'filters' => $filters,
             ]);
-
+            
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error fetching meals',
-                'error' => $e->getMessage(),
+                'message' => 'Sorry, something went wrong. Please try again.',
+                'error' => config('app.debug') ? $e->getMessage() : null,
             ], 500);
         }
+    }
+    
+    /**
+     * Query meals based on AI-extracted filters
+     */
+    private function queryMeals(array $filters)
+    {
+        $query = MenuItem::query()
+            ->where('is_available', true)
+            ->with('category');
+        
+        // Filter: Avoid certain ingredients
+        if (!empty($filters['avoid'])) {
+            $avoidList = array_map('trim', explode(',', strtolower($filters['avoid'])));
+            
+            foreach ($avoidList as $ingredient) {
+                $query->where(function($q) use ($ingredient) {
+                    $q->where('name', 'not like', "%{$ingredient}%")
+                      ->where('description', 'not like', "%{$ingredient}%");
+                });
+            }
+        }
+        
+        // Filter: Minimum protein
+        if ($filters['min_protein'] !== null) {
+            $query->where('protein', '>=', $filters['min_protein']);
+        }
+        
+        // Filter: Maximum calories
+        if ($filters['max_calories'] !== null) {
+            $query->where('calories', '<=', $filters['max_calories']);
+        }
+        
+        return $query->orderBy('name')->get();
+    }
+    
+    /**
+     * Generate human-friendly response message
+     */
+    private function generateResponseMessage(array $filters, $meals): string
+    {
+        $count = $meals->count();
+        
+        if ($count === 0) {
+            // No results
+            $constraints = [];
+            if ($filters['avoid']) {
+                $constraints[] = "without {$filters['avoid']}";
+            }
+            if ($filters['min_protein']) {
+                $constraints[] = "with at least {$filters['min_protein']}g protein";
+            }
+            if ($filters['max_calories']) {
+                $constraints[] = "under {$filters['max_calories']} calories";
+            }
+            
+            if (empty($constraints)) {
+                return "I couldn't find any meals. Try asking about our menu!";
+            }
+            
+            return "Sorry, I couldn't find meals " . implode(', ', $constraints) . ". Try different criteria?";
+        }
+        
+        // Results found
+        $constraints = [];
+        if ($filters['avoid']) {
+            $constraints[] = "avoiding {$filters['avoid']}";
+        }
+        if ($filters['min_protein']) {
+            $constraints[] = "{$filters['min_protein']}g+ protein";
+        }
+        if ($filters['max_calories']) {
+            $constraints[] = "under {$filters['max_calories']} cal";
+        }
+        
+        if (empty($constraints)) {
+            return "Here are {$count} meals from our menu:";
+        }
+        
+        return "Found {$count} meal" . ($count > 1 ? 's' : '') . " (" . implode(', ', $constraints) . "):";
     }
 }
