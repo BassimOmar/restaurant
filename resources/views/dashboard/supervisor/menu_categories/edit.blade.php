@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/supervisor/menu_categories/edit.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Edit Category')
 

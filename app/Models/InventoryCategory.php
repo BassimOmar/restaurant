@@ -10,7 +10,6 @@ class InventoryCategory extends Model
     use HasFactory;
      protected $fillable = ['name', 'description'];
 
-    // RELATIONSHIPS
     
     // One category has many inventory items
     public function items()

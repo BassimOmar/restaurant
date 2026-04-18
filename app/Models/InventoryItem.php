@@ -13,7 +13,6 @@ class InventoryItem extends Model
         'minimum_quantity', 'unit_cost', 'category_id'
     ];
 
-    // RELATIONSHIPS
     
     // Item belongs to one category
     public function category()

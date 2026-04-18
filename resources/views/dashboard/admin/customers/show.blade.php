@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/admin/customers/show.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Customer Detail')
 

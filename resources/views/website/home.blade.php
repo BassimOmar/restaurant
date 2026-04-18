@@ -1,4 +1,3 @@
-{{-- resources/views/website/home.blade.php --}}
 @extends('layouts.website')
 
 @section('title', 'Fine Dining Experience')
@@ -117,7 +116,7 @@
 <!-- WHY US -->
 <section style="background: var(--darker); padding-top: 80px;">
     <div class="section-label">Why Choose Us</div>
-    <h2 class="section-title" style="font-size:2.2rem;">The La Maison Experience</h2>
+    <h2 class="section-title" style="font-size:2.2rem;">The Finest Experience</h2>
     <div class="divider"></div>
     <div class="why-grid">
         <div class="why-card">

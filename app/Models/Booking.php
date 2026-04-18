@@ -19,7 +19,6 @@ class Booking extends Model
         'booking_date' => 'datetime', // Auto convert to Carbon
     ];
 
-    // RELATIONSHIPS
     
     // Booking is for one table
     public function table()

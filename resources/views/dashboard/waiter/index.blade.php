@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/waiter/index.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'My Dashboard')
 

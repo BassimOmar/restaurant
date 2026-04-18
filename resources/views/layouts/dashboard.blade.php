@@ -1,4 +1,3 @@
-{{-- resources/views/layouts/dashboard.blade.php --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +32,6 @@
             font-size: 0.9rem;
         }
 
-        /* SIDEBAR */
         .sidebar {
             width: var(--sidebar-w);
             background: var(--dark);
@@ -114,7 +112,6 @@
         }
         .sidebar-user .logout-link:hover { color: var(--danger); }
 
-        /* MAIN */
         .main {
             margin-left: var(--sidebar-w);
             flex: 1;
@@ -122,7 +119,6 @@
             flex-direction: column;
         }
 
-        /* TOPBAR */
         .topbar {
             padding: 18px 32px;
             display: flex;
@@ -136,10 +132,8 @@
         .topbar .breadcrumb a { color: var(--text-muted); text-decoration: none; }
         .topbar .breadcrumb a:hover { color: var(--gold); }
 
-        /* CONTENT */
         .content { padding: 28px 32px; flex: 1; }
 
-        /* FLASH */
         .flash {
             padding: 12px 18px;
             border-radius: 6px;
@@ -149,7 +143,6 @@
         .flash.success { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25); color: var(--success); }
         .flash.error { background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.25); color: var(--danger); }
 
-        /* STAT CARDS */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 28px; }
         .stat-card {
             background: var(--card-bg);
@@ -163,7 +156,6 @@
         .stat-card .stat-value.success { color: var(--success); }
         .stat-card .stat-value.danger { color: var(--danger); }
 
-        /* TABLE */
         .table-wrap {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -195,7 +187,6 @@
         tr:last-child td { border-bottom: none; }
         tr:hover td { background: rgba(255,255,255,0.02); }
 
-        /* BADGES */
         .badge {
             display: inline-block;
             padding: 3px 10px;
@@ -222,7 +213,6 @@
         .badge.active { background: rgba(52,211,153,0.15); color: var(--success); }
         .badge.inactive { background: rgba(248,113,113,0.15); color: var(--danger); }
 
-        /* BUTTONS */
         .btn {
             display: inline-block;
             padding: 8px 18px;
@@ -278,7 +268,6 @@
         .form-actions { display: flex; gap: 10px; margin-top: 24px; }
         .error-bag { color: var(--danger); font-size: 0.77rem; margin-top: 5px; }
 
-        /* PAGINATION */
         .pagination { display: flex; justify-content: center; gap: 4px; margin-top: 20px; }
         .pagination a, .pagination span {
             padding: 6px 12px;

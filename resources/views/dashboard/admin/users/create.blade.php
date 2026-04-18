@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/admin/users/create.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Create User')
 

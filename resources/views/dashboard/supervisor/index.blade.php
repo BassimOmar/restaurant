@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/supervisor/index.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Supervisor Dashboard')
 

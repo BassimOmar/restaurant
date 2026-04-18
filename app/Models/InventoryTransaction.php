@@ -14,7 +14,6 @@ class InventoryTransaction extends Model
         'quantity_before', 'quantity_after', 'reason', 'user_id'
     ];
 
-    // RELATIONSHIPS
     
     // Transaction belongs to one inventory item
     public function inventoryItem()

@@ -20,7 +20,6 @@ class Discount extends Model
         'valid_until' => 'datetime',
     ];
 
-    // RELATIONSHIPS
     
     // Many-to-many: Discount can be applied to many orders
     public function orders()

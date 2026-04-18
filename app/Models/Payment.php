@@ -17,7 +17,6 @@ class Payment extends Model
         'paid_at' => 'datetime',
     ];
 
-    // RELATIONSHIPS
     
     // Payment belongs to one order
     public function order()

@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/admin/tables/create.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Create Table')
 

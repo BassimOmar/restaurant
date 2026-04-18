@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/admin/bookings/index.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Bookings')
 

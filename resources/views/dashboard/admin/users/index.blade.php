@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/admin/users/index.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Users')
 @section('topbar_actions')

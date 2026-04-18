@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/waiter/payments/create.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Process Payment')
 

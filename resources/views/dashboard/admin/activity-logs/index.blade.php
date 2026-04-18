@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/admin/activity_logs/index.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Activity Logs')
 
@@ -23,7 +22,6 @@
         </tbody>
     </table>
 
-    <!-- Pagination -->
     @if($logs->hasPages())
     <div style="padding: 16px 22px; border-top: 1px solid var(--card-border);">
         {{ $logs->links() }}

@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/supervisor/inventory/edit.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Edit Inventory Item')
 

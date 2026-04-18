@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/admin/tables/index.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Tables')
 @section('topbar_actions')

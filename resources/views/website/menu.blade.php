@@ -69,7 +69,6 @@
 
 @section('content')
 
-<!-- HERO -->
 <div class="menu-hero">
     <div>
         <div class="section-label">Crafted With Care</div>

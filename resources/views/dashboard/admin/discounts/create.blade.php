@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/admin/discounts/create.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Create Discount')
 

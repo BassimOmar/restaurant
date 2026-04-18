@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/admin/index.blade.php --}}
 @extends('layouts.dashboard')
 
 @section('page_title', 'Admin Dashboard')
@@ -6,7 +5,6 @@
 
 @section('content')
 
-<!-- STATS -->
 <div class="stats-grid">
     <div class="stat-card">
         <div class="stat-label">Orders Today</div>
@@ -34,10 +32,8 @@
     </div>
 </div>
 
-<!-- GRID: Recent Orders + Activity -->
 <div style="display:grid; grid-template-columns: 1.4fr 1fr; gap: 20px;">
 
-    <!-- Recent Orders -->
     <div class="table-wrap">
         <div class="table-header">
             <h3>Recent Orders</h3>
@@ -67,7 +63,6 @@
         </table>
     </div>
 
-    <!-- Activity Log -->
     <div class="table-wrap">
         <div class="table-header">
             <h3>Activity Log</h3>

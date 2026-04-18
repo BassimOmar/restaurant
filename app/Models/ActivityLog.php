@@ -19,7 +19,6 @@ class ActivityLog extends Model
         'new_values' => 'array',
     ];
 
-    // RELATIONSHIPS
     
     // Log belongs to one user
     public function user()

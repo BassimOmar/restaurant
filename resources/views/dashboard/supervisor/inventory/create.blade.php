@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/supervisor/inventory/create.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Add Inventory Item')
 

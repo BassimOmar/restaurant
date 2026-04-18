@@ -1,4 +1,3 @@
-{{-- resources/views/website/private_dining.blade.php --}}
 @extends('layouts.website')
 
 @section('title', 'Private Dining ')
@@ -47,7 +46,6 @@
 
 @section('content')
 
-<!-- HERO -->
 <div class="pd-hero">
     <div>
         <div class="section-label">Exclusive</div>

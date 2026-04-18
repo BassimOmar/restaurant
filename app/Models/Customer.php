@@ -19,7 +19,6 @@ class Customer extends Model
         'last_visit' => 'datetime',
     ];
 
-    // RELATIONSHIPS
     
     // Customer can have many bookings (matched by phone)
     public function bookings()

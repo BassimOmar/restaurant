@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/admin/activity_logs/show.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Log Detail')
 

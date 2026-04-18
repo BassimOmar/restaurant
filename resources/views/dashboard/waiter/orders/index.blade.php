@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/waiter/orders/index.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'My Orders')
 @section('topbar_actions')

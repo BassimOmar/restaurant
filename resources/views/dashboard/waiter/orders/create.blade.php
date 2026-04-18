@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/waiter/orders/create.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'New Order')
 
@@ -40,7 +39,6 @@
 @section('content')
 
 <div class="order-layout">
-    <!-- LEFT: Menu Selection -->
     <div>
         <div class="table-wrap" style="padding:20px;">
             <h3 style="margin-bottom:14px; font-size:0.95rem;">Select Table</h3>
@@ -60,7 +58,6 @@
         <div class="table-wrap" style="padding:20px; margin-top:16px;">
             <h3 style="margin-bottom:12px; font-size:0.95rem;">Menu</h3>
 
-            <!-- Category Tabs -->
             <div class="cat-tabs">
                 <button class="cat-tab-btn active" onclick="filterMenu(this, 'all')">All</button>
                 @foreach(collect($menuItems)->pluck('category')->unique('id') as $cat)
@@ -80,7 +77,6 @@
         </div>
     </div>
 
-    <!-- RIGHT: Order Summary + Form -->
     <div>
         <div class="table-wrap" style="padding:20px;">
             <h3 style="margin-bottom:14px; font-size:0.95rem;">Current Order</h3>
@@ -225,7 +221,6 @@ function recalculate() {
 // Listen for discount change
 document.getElementById('discountSelect').addEventListener('change', recalculate);
 
-// Submit
 function submitOrder() {
     const tableId = document.getElementById('selected_table').value;
     if (!tableId) { alert('Please select a table.'); return; }
@@ -236,7 +231,7 @@ function submitOrder() {
     document.getElementById('formDiscountId').value = document.getElementById('discountSelect').value;
     document.getElementById('formNotes').value = document.getElementById('orderNotes').value;
 
-    // Build items inputs
+    // build items inputs
     let itemsHtml = '';
     let i = 0;
     Object.values(orderItems).forEach(item => {

@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/supervisor/menu_categories/create.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Create Category')
 

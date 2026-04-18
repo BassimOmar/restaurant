@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/supervisor/menu_categories/index.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Menu Categories')
 @section('topbar_actions')

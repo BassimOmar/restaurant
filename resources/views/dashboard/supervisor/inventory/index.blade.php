@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/supervisor/inventory/index.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Inventory')
 @section('topbar_actions')

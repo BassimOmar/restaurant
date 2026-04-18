@@ -13,7 +13,6 @@ class OrderItem extends Model
         'price', 'subtotal', 'special_instructions', 'status'
     ];
 
-    // RELATIONSHIPS
     
     // Each order item belongs to one order
     public function order()

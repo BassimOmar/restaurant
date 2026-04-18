@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/admin/tables/edit.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Edit Table')
 

@@ -1,4 +1,3 @@
-{{-- resources/views/website/booking.blade.php --}}
 @extends('layouts.website')
 
 @section('title', 'Reserve a Table')
@@ -44,7 +43,7 @@
 @section('content')
 
 <div class="booking-page">
-    <!-- LEFT: Info -->
+    <!-- LEFT Info -->
     <div class="booking-left">
         <div class="section-label">Reservations</div>
         <h1>Reserve Your<br>Evening</h1>
@@ -58,7 +57,7 @@
         </ul>
     </div>
 
-    <!-- RIGHT: Form -->
+    <!-- RIGHT Form -->
     <div class="booking-right">
         <div class="booking-form-card">
             <h3>New Reservation</h3>

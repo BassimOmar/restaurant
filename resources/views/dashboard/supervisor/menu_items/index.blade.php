@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/supervisor/menu_items/index.blade.php --}}
 @extends('layouts.dashboard')
 @section('page_title', 'Menu Items')
 @section('topbar_actions')
@@ -7,7 +6,7 @@
 
 @section('content')
 
-<!-- Category Filter -->
+<!-- Category filter -->
 <div style="display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap;">
     <button class="btn btn-outline btn-sm cat-filter active" data-cat="all">All</button>
     @foreach($categories as $cat)

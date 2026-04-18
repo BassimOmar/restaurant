@@ -18,9 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         // ═══════════════════════════════════════════════════════
         // 1. USERS (Staff)
-        // ═══════════════════════════════════════════════════════
         
         $owner = User::create([
             'name' => 'Pierre Dubois',
@@ -62,9 +60,7 @@ class DatabaseSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        // ═══════════════════════════════════════════════════════
         // 2. TABLES
-        // ═══════════════════════════════════════════════════════
         $tables = [];
         
         // Regular tables (Main Dining)
@@ -106,9 +102,7 @@ class DatabaseSeeder extends Seeder
             'location' => 'Private Room 2',
         ]);
 
-        // ═══════════════════════════════════════════════════════
         // 3. MENU
-        // ═══════════════════════════════════════════════════════
 
         // Categories
         $appetizers = MenuCategory::create([
@@ -200,9 +194,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // ═══════════════════════════════════════════════════════
         // 4. INVENTORY
-        // ═══════════════════════════════════════════════════════
 
         $vegetables = InventoryCategory::create(['name' => 'Vegetables', 'description' => 'Fresh produce']);
         $meats = InventoryCategory::create(['name' => 'Meats', 'description' => 'Premium cuts']);
@@ -265,9 +257,7 @@ class DatabaseSeeder extends Seeder
             'category_id' => $dry->id,
         ]);
 
-        // ═══════════════════════════════════════════════════════
         // 5. DISCOUNTS
-        // ═══════════════════════════════════════════════════════
 
         Discount::create([
             'code' => 'WELCOME20',
@@ -311,9 +301,7 @@ class DatabaseSeeder extends Seeder
             'valid_until' => now()->addDays(20),
         ]);
 
-        // ═══════════════════════════════════════════════════════
         // 6. CUSTOMERS (CRM)
-        // ═══════════════════════════════════════════════════════
 
         $customers = [];
         for ($i = 0; $i < 20; $i++) {
@@ -325,9 +313,7 @@ class DatabaseSeeder extends Seeder
             $customers[] = Customer::factory()->vip()->create();
         }
 
-        // ═══════════════════════════════════════════════════════
         // 7. BOOKINGS
-        // ═══════════════════════════════════════════════════════
 
         // Confirmed upcoming bookings
         for ($i = 0; $i < 10; $i++) {
@@ -347,9 +333,7 @@ class DatabaseSeeder extends Seeder
                 ->create();
         }
 
-        // ═══════════════════════════════════════════════════════
         // 8. ORDERS & PAYMENTS
-        // ═══════════════════════════════════════════════════════
 
         $menuItemsAll = MenuItem::all();
         $waiters = [$waiter1, $waiter2, $waiter3];
@@ -434,9 +418,7 @@ class DatabaseSeeder extends Seeder
             $order->table->update(['status' => 'occupied']);
         }
 
-        // ═══════════════════════════════════════════════════════
         // 9. INVENTORY TRANSACTIONS
-        // ═══════════════════════════════════════════════════════
 
         $inventoryItemsAll = InventoryItem::all();
         
@@ -449,16 +431,11 @@ class DatabaseSeeder extends Seeder
                 ->create();
         }
 
-        // ═══════════════════════════════════════════════════════
         // 10. ACTIVITY LOGS
-        // ═══════════════════════════════════════════════════════
 
         ActivityLog::factory()
             ->count(50)
             ->create();
 
-        // ═══════════════════════════════════════════════════════
-        // DONE!
-        // ═══════════════════════════════════════════════════════
     }
 }
