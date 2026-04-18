@@ -223,8 +223,12 @@ document.getElementById('discountSelect').addEventListener('change', recalculate
 
 function submitOrder() {
     const tableId = document.getElementById('selected_table').value;
+    const submitBtn = document.getElementById('submitBtn');
     if (!tableId) { alert('Please select a table.'); return; }
     if (Object.keys(orderItems).length === 0) { alert('Add at least one item.'); return; }
+
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Processing...";
 
     const form = document.getElementById('orderForm');
     document.getElementById('formTableId').value = tableId;

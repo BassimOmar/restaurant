@@ -24,54 +24,54 @@ class PaymentController extends Controller
         $order = Order::with(['items.menuItem', 'table', 'discounts', 'waiter'])
             ->findOrFail($request->order);
 
-        return view('waiter.payments.create', compact('order'));
+        return view('dashboard.waiter.payments.create', compact('order'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Order $order)
-    {
-        $request->validate([
-            'order_id' => 'required|exists:orders,id',
-            'payment_method' => 'required|in:cash,card,mobile,other',
-            'reference' => 'nullable|string',
-        ]);
+    public function store(Request $request)
+{
+    $request->validate([
+        'order_id' => 'required|exists:orders,id',
+        'payment_method' => 'required|in:cash,card,mobile,other',
+        'reference' => 'nullable|string',
+    ]);
 
-        $order = Order::findOrFail($request->order_id);
+    $order = Order::findOrFail($request->order_id);
 
-        // Check if already paid
-        if ($order->payment && $order->payment->status === 'completed') {
-            return redirect()->back()->with('error', 'Order already paid.');
-        }
-
-        Payment::create([
-            'order_id' => $order->id,
-            'payment_number' => 'PAY-' . date('Ymd') . '-' . str_pad(Payment::count() + 1, 4, '0', STR_PAD_LEFT),
-            'payment_method' => $request->payment_method,
-            'amount' => $order->total,
-            'status' => 'completed',
-            'reference' => $request->reference,
-            'processed_by' => auth()->id(),
-            'paid_at' => now(),
-        ]);
-
-        $order->update(['status' => 'completed', 'completed_at' => now()]);
-        $order->table()->update(['status' => 'available']);
-
-        $order->load('payment');
-
-        ActivityLog::create([
-            'user_id' => auth()->id(),
-            'action' => 'created',
-            'model_type' => 'Payment',
-            'model_id' => $order->payment->id,
-            'description' => 'Payment for order ' . $order->order_number . ' via ' . $request->payment_method,
-            'ip_address' => request()->ip(),
-        ]);
-
-        return redirect()->route('waiter.orders.index')->with('success', 'Payment processed.');
+    if ($order->payment && $order->payment->status === 'completed') {
+        return redirect()->back()->with('error', 'Order already paid.');
     }
+
+    $payment = Payment::create([
+        'order_id' => $order->id,
+        'payment_number' => 'PAY-' . date('Ymd') . '-' . strtoupper(uniqid()), // Guaranteed unique
+        'payment_method' => $request->payment_method,
+        'amount' => $order->total,
+        'status' => 'completed',
+        'reference' => $request->reference,
+        'processed_by' => auth()->id(),
+        'paid_at' => now(),
+    ]);
+
+    $order->update(['status' => 'completed', 'completed_at' => now()]);
+    
+    if ($order->table) {
+        $order->table->update(['status' => 'available']);
+    }
+
+    ActivityLog::create([
+        'user_id' => auth()->id(),
+        'action' => 'created',
+        'model_type' => 'Payment',
+        'model_id' => $payment->id,
+        'description' => "Payment #{$payment->payment_number} processed for Order {$order->order_number}",
+        'ip_address' => $request->ip(),
+    ]);
+
+    return redirect()->route('waiter.orders.index')->with('success', 'Payment processed and table is now available.');
+}
 
     /**
      * Display the specified resource.

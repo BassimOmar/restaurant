@@ -38,7 +38,7 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string',
             'sku' => 'required|unique:inventory_items',
             'unit' => 'required|string',
@@ -48,7 +48,7 @@ class InventoryController extends Controller
             'category_id' => 'nullable|exists:inventory_categories,id',
         ]);
 
-        InventoryItem::create($request->validated());
+        InventoryItem::create($validatedData);
 
         return redirect()->route('supervisor.inventory.index')->with('success', 'Item added.');
     }

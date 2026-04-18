@@ -31,7 +31,7 @@ class DiscountController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'code' => 'required|unique:discounts',
             'name' => 'required|string',
             'type' => 'required|in:percentage,fixed_amount',
@@ -42,7 +42,7 @@ class DiscountController extends Controller
             'valid_until' => 'nullable|date',
         ]);
 
-        Discount::create($request->validated());
+        Discount::create($validatedData);
 
         return redirect()->route('admin.discounts.index')->with('success', 'Discount created.');
     }

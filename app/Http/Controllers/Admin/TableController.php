@@ -30,15 +30,15 @@ class TableController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'table_number' => 'required|unique:tables',
             'capacity' => 'required|integer|min:1',
             'type' => 'required|in:regular,private_dining',
             'location' => 'nullable|string',
         ]);
 
-        Table::create($request->validated());
 
+        Table::create($validatedData);
         return redirect()->route('admin.tables.index')->with('success', 'Table created.');
     }
 

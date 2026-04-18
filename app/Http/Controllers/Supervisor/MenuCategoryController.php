@@ -30,13 +30,13 @@ class MenuCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string|unique:menu_categories',
             'description' => 'nullable|string',
             'sort_order' => 'nullable|integer',
         ]);
 
-        MenuCategory::create($request->validated());
+        MenuCategory::create($validatedData);
 
         return redirect()->route('supervisor.menu_categories.index')->with('success', 'Category created.');
     }

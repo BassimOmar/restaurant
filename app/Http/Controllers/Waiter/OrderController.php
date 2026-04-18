@@ -129,6 +129,48 @@ class OrderController extends Controller
         return redirect()->route('waiter.orders.index')->with('success', 'Item status updated.');
     }
 
+    public function cancel(Order $order)
+{
+    // Prevent canceling already completed, paid, or canceled orders
+    if (in_array($order->status, ['completed', 'cancelled'])) {
+        return redirect()->back()->with('error', 'This order cannot be cancelled in its current state.');
+    }
+
+    // 1. Update the order status
+    $order->update(['status' => 'cancelled']);
+
+    // 2. Free up the table so it can be used by others
+    if ($order->table) {
+        $order->table->update(['status' => 'available']);
+    }
+
+    // 3. Log the activity (Following your existing pattern)
+    ActivityLog::create([
+        'user_id' => auth()->id(),
+        'action' => 'cancelled',
+        'model_type' => 'Order',
+        'model_id' => $order->id,
+        'description' => 'Order ' . $order->order_number . ' was cancelled',
+        'ip_address' => request()->ip(),
+    ]);
+
+    return redirect()->route('waiter.orders.index')->with('success', 'Order cancelled successfully.');
+}
+
+public function start(Order $order)
+{
+    $order->update(['status' => 'in_progress']);
+    return redirect()->back()->with('success', 'Order started.');
+}
+
+public function complete(Order $order)
+{
+    $order->update(['status' => 'completed']);
+    // Optional: free the table here if you don't wait for payment
+    // $order->table->update(['status' => 'available']); 
+    return redirect()->back()->with('success', 'Order completed.');
+}
+
     /**
      * Display the specified resource.
      */

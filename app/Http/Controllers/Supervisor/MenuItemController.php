@@ -32,7 +32,7 @@ class MenuItemController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'category_id' => 'required|exists:menu_categories,id',
             'name' => 'required|string',
             'description' => 'nullable|string',
@@ -41,7 +41,6 @@ class MenuItemController extends Controller
             'allergens' => 'nullable|array',
         ]);
 
-        $data = $request->validated();
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('menu', 'public');
