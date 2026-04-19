@@ -144,7 +144,6 @@ class OrderController extends Controller
         $order->table->update(['status' => 'available']);
     }
 
-    // 3. Log the activity (Following your existing pattern)
     ActivityLog::create([
         'user_id' => auth()->id(),
         'action' => 'cancelled',
@@ -166,8 +165,6 @@ public function start(Order $order)
 public function complete(Order $order)
 {
     $order->update(['status' => 'completed']);
-    // Optional: free the table here if you don't wait for payment
-    // $order->table->update(['status' => 'available']); 
     return redirect()->back()->with('success', 'Order completed.');
 }
 

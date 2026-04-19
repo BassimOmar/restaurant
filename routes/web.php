@@ -72,7 +72,7 @@ Route::prefix('supervisor')
     ->group(function () {
         Route::get('/', [App\Http\Controllers\Supervisor\DashboardController::class, 'index'])->name('index');
         
-        Route::resource('inventory', App\Http\Controllers\Supervisor\InventoryController::class);
+        Route::resource('inventory', App\Http\Controllers\Supervisor\InventoryController::class)->parameters(['inventory' => 'inventoryItem']);
         Route::post('inventory/{inventoryItem}/adjust', [App\Http\Controllers\Supervisor\InventoryController::class, 'adjustStock'])->name('inventory.adjust');
         
         Route::resource('menu_categories', App\Http\Controllers\Supervisor\MenuCategoryController::class);

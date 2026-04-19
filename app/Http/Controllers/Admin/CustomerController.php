@@ -55,7 +55,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string',
             'phone' => 'required|unique:customers,phone,' . $customer->id,
             'email' => 'nullable|email|unique:customers,email,' . $customer->id,
@@ -63,7 +63,7 @@ class CustomerController extends Controller
             'notes' => 'nullable|string',
         ]);
 
-        $customer->update($request->validated());
+        $customer->update($validatedData);
         $customer->update(['is_vip' => $request->boolean('is_vip')]);
 
         return redirect()->route('admin.customers.index')->with('success', 'Customer updated.');

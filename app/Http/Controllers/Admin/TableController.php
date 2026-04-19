@@ -63,7 +63,7 @@ class TableController extends Controller
      */
     public function update(Request $request, Table $table)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'table_number' => 'required|unique:tables,table_number,' . $table->id,
             'capacity' => 'required|integer|min:1',
             'type' => 'required|in:regular,private_dining',
@@ -71,7 +71,7 @@ class TableController extends Controller
             'location' => 'nullable|string',
         ]);
 
-        $table->update($request->validated());
+        $table->update($validatedData);
 
         return redirect()->route('admin.tables.index')->with('success', 'Table updated.');
     }

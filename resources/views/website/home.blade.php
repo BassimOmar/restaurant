@@ -87,7 +87,9 @@
     <div class="featured-grid">
         @foreach($featured as $item)
         <div class="featured-card">
-            <img src="{{ $item->image ? '/storage/' . $item->image : 'https://images.unsplash.com/photo-1504674400574-4faa70b0538a?w=600&q=80' }}" alt="{{ $item->name }}" />
+            <img src="{{ asset('assets/img/' . $item->image) }}" 
+            alt="{{ $item->name }}" 
+            style="width: 100%; height: 200px; object-fit: cover;">
             <div class="card-overlay">
                 <div class="card-category">{{ $item->category->name }}</div>
                 <div class="card-name">{{ $item->name }}</div>

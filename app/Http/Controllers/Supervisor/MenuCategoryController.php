@@ -62,13 +62,13 @@ class MenuCategoryController extends Controller
      */
     public function update(Request $request, MenuCategory $menuCategory)
     {
-        $request->validate([
+        $validatedData  = $request->validate([
             'name' => 'required|string|unique:menu_categories,name,' . $menuCategory->id,
             'description' => 'nullable|string',
             'sort_order' => 'nullable|integer',
         ]);
 
-        $menuCategory->update($request->validated());
+        $menuCategory->update($validatedData);
         $menuCategory->update(['is_active' => $request->boolean('is_active')]);
 
         return redirect()->route('supervisor.menu_categories.index')->with('success', 'Category updated.');

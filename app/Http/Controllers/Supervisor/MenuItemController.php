@@ -73,7 +73,7 @@ class MenuItemController extends Controller
      */
     public function update(Request $request, MenuItem $menuItem)
     {
-         $request->validate([
+         $data = $request->validate([
             'category_id' => 'required|exists:menu_categories,id',
             'name' => 'required|string',
             'description' => 'nullable|string',
@@ -82,11 +82,13 @@ class MenuItemController extends Controller
             'allergens' => 'nullable|array',
         ]);
 
-        $data = $request->validated();
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('menu', 'public');
         }
+
+        $data['is_available'] = $request->boolean('is_available');
+        $data['is_featured'] = $request->boolean('is_featured');
 
         $menuItem->update($data);
         $menuItem->update([

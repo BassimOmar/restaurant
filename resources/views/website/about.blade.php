@@ -36,7 +36,7 @@
 <section style="padding: 90px 60px 60px;">
     <div class="about-content">
         <p class="highlight">this restaurant was born from a simple belief: that great food is more than sustenance — it is an experience.</p>
-        <p>Founded in 2018, La Maison has become a cornerstone of the local culinary scene. Our chefs source the finest ingredients — many locally grown — and transform them into dishes that celebrate the seasons and honor tradition while embracing innovation.</p>
+        <p>Founded in 2018, has become a cornerstone of the local culinary scene. Our chefs source the finest ingredients — many locally grown — and transform them into dishes that celebrate the seasons and honor tradition while embracing innovation.</p>
         <p>Every corner of our restaurant has been thoughtfully designed to create an atmosphere of warmth, elegance, and comfort. From our intimate main dining hall to our secluded private dining rooms, each space is a place to savor life's finer moments.</p>
     </div>
 

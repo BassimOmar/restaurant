@@ -75,7 +75,7 @@ class InventoryController extends Controller
      */
     public function update(Request $request, InventoryItem $inventoryItem)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string',
             'sku' => 'required|unique:inventory_items,sku,' . $inventoryItem->id,
             'unit' => 'required|string',
@@ -84,8 +84,8 @@ class InventoryController extends Controller
             'category_id' => 'nullable|exists:inventory_categories,id',
         ]);
 
-        $inventoryItem->update($request->validated());
 
+        $inventoryItem->update($validatedData);
         return redirect()->route('supervisor.inventory.index')->with('success', 'Item updated.');
     }
 
