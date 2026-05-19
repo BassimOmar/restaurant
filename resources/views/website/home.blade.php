@@ -69,7 +69,7 @@
 <section class="hero">
     <div class="hero-content">
         <div class="hero-label">Welcome to</div>
-        <h1>Restaurant</h1>
+        <h1>La Maison</h1>
         <p>An extraordinary culinary journey, crafted with passion and the finest ingredients. Every dish tells a story.</p>
         <div class="hero-buttons">
             <a href="{{ route('website.menu') }}" class="btn-gold">Explore Menu</a>
