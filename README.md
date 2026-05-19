@@ -3,8 +3,6 @@
 [![Laravel](https://img.shields.io/badge/Laravel-11-red.svg)](https://laravel.com)
 [![PHP](https://img.shields.io/badge/PHP-8.2-blue.svg)](https://php.net)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-orange.svg)](https://mysql.com)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-
 A comprehensive restaurant management system built with Laravel 11, featuring a public website, role-based staff dashboard, and AI-powered mobile companion app.
 
 ---
