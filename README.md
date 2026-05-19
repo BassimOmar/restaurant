@@ -488,6 +488,7 @@ chmod -R 755 storage bootstrap/cache
 # 7. Configure database backups
 
 # 8. Set up monitoring (logs, errors)
+```
 ---
 
 **Built with ❤️ using Laravel 11**
