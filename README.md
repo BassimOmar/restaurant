@@ -18,9 +18,6 @@ A comprehensive restaurant management system built with Laravel 11, featuring a 
 - [API Documentation](#-api-documentation)
 - [Testing](#-testing)
 - [Troubleshooting](#-troubleshooting)
-- [Contributing](#-contributing)
-- [License](#-license)
-
 ---
 
 ## ✨ Features
@@ -491,25 +488,6 @@ chmod -R 755 storage bootstrap/cache
 # 7. Configure database backups
 
 # 8. Set up monitoring (logs, errors)
-```
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
-
-### Coding Standards
-
-- Follow PSR-12 coding standard
-- Write descriptive commit messages
-- Add tests for new features
-- Update documentation
-
 ---
 
 **Built with ❤️ using Laravel 11**
