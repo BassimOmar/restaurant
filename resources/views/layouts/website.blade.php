@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@yield('title', 'Restaurant')</title>
+    <title>@yield('title', 'La Maison')</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap');
 
@@ -166,7 +166,7 @@
 <body>
 
 <nav>
-    <a href="{{ route('website.home') }}" class="logo"><span>Restaurant</span></a>
+    <a href="{{ route('website.home') }}" class="logo"><span>La Maison</span></a>
     <ul class="nav-links">
         <li><a href="{{ route('website.home') }}">Home</a></li>
         <li><a href="{{ route('website.menu') }}">Menu</a></li>
