@@ -289,7 +289,7 @@
 <!-- SIDEBAR -->
 <aside class="sidebar">
     <div class="sidebar-logo">
-        <h1>Restaurant</h1>
+        <h1>La Maison</h1>
         <span>{{ auth()->user()->role }} panel</span>
     </div>
 
